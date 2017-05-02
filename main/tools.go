@@ -28,13 +28,13 @@ func WriteFile(filePath string, content interface{}) (int, error) {
 
 func WriteHouseInfoToFile(filePath string, houseItems []HouseInfo) {
 	file, err := os.Create(filePath)
-	defer file.Close()
 	if err != nil {
 		return
 	}
+	defer file.Close()
 
 	for _, houseInfo := range houseItems {
-		file.WriteString(houseInfo.unitPrise + "\t" + houseInfo.title + "\t" + houseInfo.address + "\t")
+		file.WriteString(houseInfo.unitPrise + "\t" + strconv.Itoa(houseInfo.totalPrise) + "\t" + houseInfo.title + "\t" + houseInfo.address + "\t" + houseInfo.followInfo)
 		file.WriteString("\n")
 	}
 }
@@ -72,8 +72,6 @@ func GetItemFromUrl(url string) ([]HouseInfo, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	fmt.Println(doc.Html())
-
 	var itemList []HouseInfo
 	doc.Find(".sellListContent").Find(".info").Each(func(i int, s *goquery.Selection) {
 		title := s.Find(".title").Text()
