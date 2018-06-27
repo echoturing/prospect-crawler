@@ -1,10 +1,9 @@
 package main
 
 import (
-	"os"
 	"bytes"
 	"fmt"
-	"strconv"
+	"os"
 	"time"
 )
 
@@ -28,19 +27,23 @@ func loadContentFromFile(filePath string) (*bytes.Buffer, error) {
 	return buf, nil
 }
 
-var BLOCK_NAME = []string{"gaoxin7", "tianfuxinqu"}
-var BASE_STRING = "http://cd.lianjia.com/ershoufang/%s/pg%s/"
-var RESULT_FILE = "%s_result_%s.txt"
+const (
+	endpoint = `http://cd.lianjia.com`
+)
+
+var (
+	blockNames = []string{"gaoxin7", "tianfuxinqu"}
+	resultFile = "%s_result_%s.txt"
+)
 
 func main() {
-
-	for _, blockName := range BLOCK_NAME {
+	for _, blockName := range blockNames {
 		var allItems []HouseInfo
 		var preItems []HouseInfo
 		for i := 1; i < 100; i++ {
-			requestUrl := fmt.Sprintf(BASE_STRING, blockName, strconv.Itoa(i))
+			requestURL := fmt.Sprintf("%s/ershoufang/%s/pg%d/", endpoint, blockName, i)
 			time.Sleep(time.Second * 5)
-			res, _ := GetItemFromUrl(requestUrl)
+			res, _ := GetItemFromUrl(requestURL)
 			if NeedContinue(preItems, res) {
 				preItems = res
 				allItems = append(allItems, res...)
@@ -50,13 +53,7 @@ func main() {
 			}
 
 		}
-		resultFile := fmt.Sprintf(RESULT_FILE,time.Now(), blockName)
+		resultFile := fmt.Sprintf(resultFile, time.Now(), blockName)
 		WriteHouseInfoToFile(resultFile, allItems)
 	}
-	//var x = []byte("Golang中文社区——")
-	//reader := bytes.NewReader(x)
-	//m := make([]byte, 4)
-	//reader.Read(m)
-	//fmt.Println(len(x),m)
-
 }
