@@ -57,6 +57,24 @@ func getItemFromURL(url string) ([]HouseInfo, error) {
 	return itemList, nil
 }
 
+func getRentItemsFromURL(url string) ([]RentInfo, error) {
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		return nil, err
+	}
+	var items []RentInfo
+	doc.Find("#house-lst").Find("li").Each(func(i int, s *goquery.Selection) {
+		var ri RentInfo
+		if err := ri.fromSelection(s); err != nil {
+			log.Printf("failed to extract item: %v", err)
+			return
+		}
+		items = append(items, ri)
+		fmt.Println(ri)
+	})
+	return items, nil
+}
+
 func needContinue(items1 []HouseInfo, items2 []HouseInfo) bool {
 	if len(items1) != len(items2) {
 		return true
@@ -68,11 +86,11 @@ func needContinue(items1 []HouseInfo, items2 []HouseInfo) bool {
 	return true
 }
 
-func CrowlDistrict(district string, maxPage int) []HouseInfo {
+func CrawlDistrict(city City, district string, maxPage int) []HouseInfo {
 	var allItems []HouseInfo
 	var prevItems []HouseInfo
 	for i := 1; i <= maxPage; i++ {
-		requestURL := fmt.Sprintf("%s/%s/pg%d/", endpoint(ChengDu, SecondHand), district, i)
+		requestURL := fmt.Sprintf("%s/%s/pg%d/", endpoint(city, SecondHand), district, i)
 		log.Printf("crawling page %d from %s", i, requestURL)
 		res, err := getItemFromURL(requestURL)
 		if err != nil {
@@ -86,6 +104,23 @@ func CrowlDistrict(district string, maxPage int) []HouseInfo {
 			fmt.Println("发现重复的,停止")
 			break
 		}
+		time.Sleep(time.Second * 5)
+	}
+	return allItems
+}
+
+func CrawlDistrictRent(city City, district string, maxPage int) []RentInfo {
+	var allItems []RentInfo
+	for i := 1; i <= maxPage; i++ {
+		requestURL := fmt.Sprintf("%s/%s/pg%d/", endpoint(city, Rent), district, i)
+		log.Printf("crawling page %d from %s", i, requestURL)
+		items, err := getRentItemsFromURL(requestURL)
+		if err != nil {
+			log.Printf("failed to crawl %s, err: %v", requestURL, err)
+			continue
+		}
+		log.Printf("got %d items from page %d", len(items), i)
+		allItems = append(allItems, items...)
 		time.Sleep(time.Second * 5)
 	}
 	return allItems

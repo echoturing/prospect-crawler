@@ -1,14 +1,18 @@
 package linkhome
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/PuerkitoBio/goquery"
+)
 
 // City name
 type City string
 
 // List of Supported cities
 const (
-	ChengDu  City = `cd`
-	ShangHai City = `sh`
+	Chengdu  City = `cd`
+	Shanghai City = `sh`
 )
 
 // Category name
@@ -21,7 +25,7 @@ const (
 )
 
 func endpoint(city City, cat Category) string {
-	return fmt.Sprintf("http://%s.lianjia.com/%s", city, cat)
+	return fmt.Sprintf("https://%s.lianjia.com/%s", city, cat)
 }
 
 type Tags struct {
@@ -42,4 +46,25 @@ type HouseInfo struct {
 
 func (hi HouseInfo) String() string {
 	return fmt.Sprintf("%s %d %s %s %s", hi.UnitPrice, hi.TotalPrice, hi.Title, hi.Address, hi.FollowInfo)
+}
+
+type RentInfo struct {
+	DataID        string // TODO: int64
+	DataHouseCode string // TODO: int64
+	// TODO: image URL
+
+	Where string
+	Price string
+}
+
+func (ri *RentInfo) fromSelection(s *goquery.Selection) error {
+	ri.DataID, _ = s.Attr("data-id")
+	ri.DataHouseCode, _ = s.Attr("data-housecode")
+	ri.Where = s.Find(".where").Text()
+	ri.Price = s.Find(".price").Text()
+	return nil
+}
+
+func (ri RentInfo) String() string {
+	return fmt.Sprintf("%s    %-16s %s", ri.DataID, ri.Price, ri.Where)
 }
