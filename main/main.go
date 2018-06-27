@@ -1,31 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
-	"os"
 	"time"
 )
-
-func loadContentFromFile(filePath string) (*bytes.Buffer, error) {
-	file, err := os.Open(filePath)
-	defer file.Close()
-	if err != nil {
-		return nil, err
-	}
-	var content []byte
-	buffer := make([]byte, 1024)
-	for {
-		n, _ := file.Read(buffer)
-		if 0 == n {
-			break
-		}
-		content = append(content, buffer[:n]...)
-
-	}
-	buf := bytes.NewBuffer(content)
-	return buf, nil
-}
 
 const (
 	endpoint = `http://cd.lianjia.com`
