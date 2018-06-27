@@ -68,11 +68,11 @@ func needContinue(items1 []HouseInfo, items2 []HouseInfo) bool {
 	return true
 }
 
-func CrowlBlock(blockName string, maxPage int) []HouseInfo {
+func CrowlDistrict(district string, maxPage int) []HouseInfo {
 	var allItems []HouseInfo
 	var prevItems []HouseInfo
 	for i := 1; i <= maxPage; i++ {
-		requestURL := fmt.Sprintf("%s/ershoufang/%s/pg%d/", endpoint, blockName, i)
+		requestURL := fmt.Sprintf("%s/%s/pg%d/", endpoint(ChengDu, SecondHand), district, i)
 		log.Printf("crawling page %d from %s", i, requestURL)
 		res, err := getItemFromURL(requestURL)
 		if err != nil {

@@ -8,14 +8,14 @@ import (
 )
 
 var (
-	blockNames = []string{"gaoxin7", "tianfuxinqu"}
+	districts = []string{"gaoxin7", "tianfuxinqu"}
 )
 
 func main() {
 	timestamp := time.Now().Unix()
-	for _, blockName := range blockNames {
-		items := linkhome.CrowlBlock(blockName, 1)
-		resultFile := fmt.Sprintf("result_%s_%d.txt", blockName, timestamp)
+	for _, name := range districts {
+		items := linkhome.CrowlDistrict(name, 1)
+		resultFile := fmt.Sprintf("result_%s_%d.txt", name, timestamp)
 		linkhome.SaveHouseInfo(resultFile, items)
 	}
 }

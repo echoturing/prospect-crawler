@@ -2,9 +2,27 @@ package linkhome
 
 import "fmt"
 
+// City name
+type City string
+
+// List of Supported cities
 const (
-	endpoint = `http://cd.lianjia.com`
+	ChengDu  City = `cd`
+	ShangHai City = `sh`
 )
+
+// Category name
+type Category string
+
+// List of Supported categories
+const (
+	Rent       Category = `zufang`
+	SecondHand Category = `ershoufang`
+)
+
+func endpoint(city City, cat Category) string {
+	return fmt.Sprintf("http://%s.lianjia.com/%s", city, cat)
+}
 
 type Tags struct {
 	Subway  string
