@@ -8,17 +8,16 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func WriteHouseInfoToFile(filePath string, houseItems []HouseInfo) {
+func WriteHouseInfoToFile(filePath string, houseItems []HouseInfo) error {
 	file, err := os.Create(filePath)
 	if err != nil {
-		return
+		return err
 	}
 	defer file.Close()
-
 	for _, houseInfo := range houseItems {
-		file.WriteString(houseInfo.unitPrice + "\t" + strconv.Itoa(houseInfo.totalPrice) + "\t" + houseInfo.title + "\t" + houseInfo.address + "\t" + houseInfo.followInfo)
-		file.WriteString("\n")
+		fmt.Fprintf(file, "%s\n", houseInfo)
 	}
+	return nil
 }
 
 type Tag struct {
@@ -34,7 +33,11 @@ type HouseInfo struct {
 	totalPrice int
 	unitPrice  string
 	followInfo string
-	Tag
+	Tag        Tag
+}
+
+func (hi HouseInfo) String() string {
+	return fmt.Sprintf("%s %d %s %s %s", hi.unitPrice, hi.totalPrice, hi.title, hi.address, hi.followInfo)
 }
 
 func NeedContinue(items1 []HouseInfo, items2 []HouseInfo) bool {
@@ -48,11 +51,9 @@ func NeedContinue(items1 []HouseInfo, items2 []HouseInfo) bool {
 	return true
 }
 
-func GetItemFromUrl(url string) ([]HouseInfo, error) {
-	fmt.Println(url)
+func GetItemFromURL(url string) ([]HouseInfo, error) {
 	doc, err := goquery.NewDocument(url)
 	if err != nil {
-		fmt.Println(err)
 		return nil, err
 	}
 	var itemList []HouseInfo
