@@ -35,6 +35,7 @@ type Tags struct {
 }
 
 type HouseInfo struct {
+	HouseCode  string `json:"house_code"`
 	Title      string `json:"title"`
 	DetailURL  string `json:"detail_url"`
 	Address    string `json:"address"`
@@ -45,7 +46,7 @@ type HouseInfo struct {
 }
 
 func (hi HouseInfo) String() string {
-	return fmt.Sprintf("%s %d %s %s %s", hi.UnitPrice, hi.TotalPrice, hi.Title, hi.Address, hi.FollowInfo)
+	return fmt.Sprintf("%s %s %d %s %s %s", hi.HouseCode, hi.UnitPrice, hi.TotalPrice, hi.Title, hi.Address, hi.FollowInfo)
 }
 
 type RentInfo struct {
