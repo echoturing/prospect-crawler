@@ -16,12 +16,12 @@ type mysqlConfig struct {
 	ParseTime bool   `yaml:"parse_time"`
 }
 
-type config struct {
+type Config struct {
 	Mysql mysqlConfig `yaml:"mysql"`
 }
 
-func LoadConfigFromFile(filePath string) (*config, error) {
-	var cfg config
+func LoadConfigFromFile(filePath string) (*Config, error) {
+	var cfg Config
 	f, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
