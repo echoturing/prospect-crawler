@@ -12,7 +12,7 @@ type ConfigTestSuit struct {
 }
 
 func (c *ConfigTestSuit) TestLoadConfigFromFile() {
-	filePath, err := filepath.Abs("config.yaml")
+	filePath, err := filepath.Abs("Config.yaml")
 	c.Nil(err)
 	cfg, err := LoadConfigFromFile(filePath)
 	c.Nil(err)

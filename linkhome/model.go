@@ -28,21 +28,18 @@ func endpoint(city City, cat Category) string {
 	return fmt.Sprintf("https://%s.lianjia.com/%s", city, cat)
 }
 
-type Tags struct {
-	Subway  string
-	TaxFree string
-	HasKey  string
-}
-
 type HouseInfo struct {
-	HouseCode  string `json:"house_code"`
-	Title      string `json:"title"`
-	DetailURL  string `json:"detail_url"`
-	Address    string `json:"address"`
-	TotalPrice int    `json:"total_price"`
-	UnitPrice  string `json:"unit_price"`
-	FollowInfo string `json:"follow_info"`
-	Tags       Tags   `json:"tags"`
+	ID         int64  `json:"id" db:"id"`
+	HouseCode  string `json:"house_code" db:"house_code"`
+	Title      string `json:"title" db:"title"`
+	DetailURL  string `json:"detail_url" db:"detail_url"`
+	Address    string `json:"address" db:"address"`
+	TotalPrice int    `json:"total_price" db:"total_price"`
+	UnitPrice  string `json:"unit_price" db:"unit_price"`
+	FollowInfo string `json:"follow_info" db:"follow_info"`
+	Subway     string `json:"subway" db:"subway"`
+	TaxFree    string `json:"tax_free" db:"tax_free"`
+	HasKey     string `json:"has_key" db:"has_key"`
 }
 
 func (hi HouseInfo) String() string {
