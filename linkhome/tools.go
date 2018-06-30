@@ -10,7 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func SaveHouseInfo(filePath string, houseItems []HouseInfo) error {
+func SaveHouseInfoToFile(filePath string, houseItems []HouseInfo) error {
 	file, err := os.Create(filePath)
 	if err != nil {
 		return err
@@ -47,11 +47,9 @@ func getItemFromURL(url string) ([]HouseInfo, error) {
 			FollowInfo: followInfo,
 			TotalPrice: totalPrice,
 			UnitPrice:  unitPrice,
-			Tags: Tags{
-				Subway:  subway,
-				TaxFree: taxfree,
-				HasKey:  haskey,
-			},
+			Subway:     subway,
+			TaxFree:    taxfree,
+			HasKey:     haskey,
 		}
 		fmt.Println(houseInfo)
 		itemList = append(itemList, houseInfo)

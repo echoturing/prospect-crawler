@@ -1,0 +1,9 @@
+mysql:
+  user: "root"
+  password: ""
+  net: "tcp"
+  addr: "localhost"
+  db_name: "local_test"
+  charset: "utf8mb4,utf8"
+  parse_time: true
+
