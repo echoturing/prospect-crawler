@@ -1,9 +1,10 @@
 package etc
 
 import (
-	"github.com/stretchr/testify/suite"
-	"testing"
 	"path/filepath"
+	"testing"
+
+	"github.com/stretchr/testify/suite"
 )
 
 type ConfigTestSuit struct {

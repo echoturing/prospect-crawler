@@ -2,7 +2,8 @@ package etc
 
 import (
 	"os"
-	"gopkg.in/yaml.v2"
+
+	"github.com/go-yaml/yaml"
 )
 
 type mysqlConfig struct {
@@ -20,15 +21,15 @@ type config struct {
 }
 
 func LoadConfigFromFile(filePath string) (*config, error) {
-	cfg := &config{}
+	var cfg config
 	f, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
+	defer f.Close()
 	decoder := yaml.NewDecoder(f)
-	err = decoder.Decode(cfg)
-	if err != nil {
+	if err := decoder.Decode(cfg); err != nil {
 		return nil, err
 	}
-	return cfg, nil
+	return &cfg, nil
 }
