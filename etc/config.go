@@ -28,7 +28,7 @@ func LoadConfigFromFile(filePath string) (*config, error) {
 	}
 	defer f.Close()
 	decoder := yaml.NewDecoder(f)
-	if err := decoder.Decode(cfg); err != nil {
+	if err := decoder.Decode(&cfg); err != nil {
 		return nil, err
 	}
 	return &cfg, nil
