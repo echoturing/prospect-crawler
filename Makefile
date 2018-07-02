@@ -9,7 +9,9 @@ main:
 	mkdir -p bin
 	ln -s $(PWD) $(GOPATH)/src/$(PKG)
 	ln -s $(PWD)/bin $(GOPATH)/bin
-	GOPATH=$(GOPATH) go install -v $(PKG)/main
+	GOPATH=$(GOPATH) go install -v \
+		$(PKG)/cmd/chengdu \
+		$(PKG)/cmd/shanghai-2018 \
 
 clean:
 	-rm -fr $(GOPATH)

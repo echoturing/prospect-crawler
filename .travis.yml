@@ -1,0 +1,17 @@
+language: go
+go:
+  - "1.10"
+
+services:
+  - mysql
+
+script: go list ./...  | grep -v vendor | xargs go test
+
+before_install:
+  - mysql -uroot -r 'CREATE DATABASE local_test DEFAULT CHARACTER SET utf8;'
+  find sql -name "*.sql" | awk '{ print "source" ,$0}' | mysql -u root --batch local_test
+
+install:
+  - git submodule update --init --recursive
+
+script: go list ./...  | grep -v vendor | xargs go test
