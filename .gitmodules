@@ -16,3 +16,9 @@
 [submodule "vendor/github.com/gocraft/dbr"]
 	path = vendor/github.com/gocraft/dbr
 	url = https://github.com/gocraft/dbr
+[submodule "vendor/github.com/go-sql-driver/mysql"]
+	path = vendor/github.com/go-sql-driver/mysql
+	url = https://github.com/go-sql-driver/mysql
+[submodule "vendor/github.com/stretchr/testify"]
+	path = vendor/github.com/stretchr/testify
+	url = https://github.com/stretchr/testify.git

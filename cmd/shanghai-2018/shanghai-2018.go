@@ -15,7 +15,7 @@ func main() {
 	for _, name := range districts {
 		items := linkhome.CrawlDistrictRent(linkhome.Shanghai, name, 1)
 		// resultFile := fmt.Sprintf("result_%s_%d.txt", name, timestamp)
-		// linkhome.SaveHouseInfo(resultFile, items)
+		// linkhome.SaveHouseInfoToFile(resultFile, items)
 		_ = items
 	}
 }
