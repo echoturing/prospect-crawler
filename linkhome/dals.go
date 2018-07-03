@@ -17,10 +17,19 @@ var TableHouseColumns = []string{
 	"subway",
 	"tax_free",
 	"has_key",
+	"city",
+	"district",
+	"created_at",
 }
 
 type HouseInfoDal struct {
 	conn *dbr.Connection
+}
+
+func NewHouseInfoDal(conn *dbr.Connection) *HouseInfoDal {
+	return &HouseInfoDal{
+		conn: conn,
+	}
 }
 
 func (h *HouseInfoDal) CreateHouseInfo(info *HouseInfo) (*HouseInfo, error) {
@@ -47,22 +56,35 @@ func (h *HouseInfoDal) BatchCreateHouseInfo(infoList []*HouseInfo) (int64, error
 	}
 	var count int64
 	defer tx.RollbackUnlessCommitted()
-	for info := range infoList {
+	for _, info := range infoList {
 		result, err := tx.InsertInto(TableHouseInfo).
-			Record(info).
 			Columns(TableHouseColumns...).
+			Record(info).
 			Exec()
 		if err != nil {
-			tx.Rollback()
 			return 0, err
 		}
 		rowsAffected, err := result.RowsAffected()
 		if err != nil {
-			tx.Rollback()
 			return 0, err
 		}
 		count += rowsAffected
 	}
-
+	tx.Commit()
 	return count, nil
+}
+
+func (h *HouseInfoDal) GetHouseInfoListByCityAndDistrict(city, district string, limit, offset uint64) ([]*HouseInfo, int64, error) {
+	session := h.conn.NewSession(nil)
+	var infoList []*HouseInfo
+	count, err := session.Select(TableHouseColumns...).
+		From(TableHouseInfo).
+		Where(dbr.And(dbr.Eq("city", city), dbr.Eq("district", district))).
+		Limit(limit).
+		Offset(offset).
+		Load(&infoList)
+	if err != nil {
+		return nil, -1, err
+	}
+	return infoList, int64(count), nil
 }

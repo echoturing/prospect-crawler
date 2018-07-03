@@ -3,6 +3,8 @@ package linkhome
 import (
 	"fmt"
 
+	"time"
+
 	"github.com/PuerkitoBio/goquery"
 )
 
@@ -29,17 +31,20 @@ func endpoint(city City, cat Category) string {
 }
 
 type HouseInfo struct {
-	ID         int64  `json:"id" db:"id"`
-	HouseCode  string `json:"house_code" db:"house_code"`
-	Title      string `json:"title" db:"title"`
-	DetailURL  string `json:"detail_url" db:"detail_url"`
-	Address    string `json:"address" db:"address"`
-	TotalPrice int    `json:"total_price" db:"total_price"`
-	UnitPrice  string `json:"unit_price" db:"unit_price"`
-	FollowInfo string `json:"follow_info" db:"follow_info"`
-	Subway     string `json:"subway" db:"subway"`
-	TaxFree    string `json:"tax_free" db:"tax_free"`
-	HasKey     string `json:"has_key" db:"has_key"`
+	ID         int64     `json:"id" db:"id"`
+	City       string    `json:"city" db:"city"`
+	District   string    `json:"district" db:"district"`
+	HouseCode  string    `json:"house_code" db:"house_code"`
+	Title      string    `json:"title" db:"title"`
+	DetailURL  string    `json:"detail_url" db:"detail_url"`
+	Address    string    `json:"address" db:"address"`
+	TotalPrice int       `json:"total_price" db:"total_price"`
+	UnitPrice  string    `json:"unit_price" db:"unit_price"`
+	FollowInfo string    `json:"follow_info" db:"follow_info"`
+	Subway     string    `json:"subway" db:"subway"`
+	TaxFree    string    `json:"tax_free" db:"tax_free"`
+	HasKey     string    `json:"has_key" db:"has_key"`
+	CreatedAt  time.Time `json:"created_at" db:"created_at"`
 }
 
 func (hi HouseInfo) String() string {
