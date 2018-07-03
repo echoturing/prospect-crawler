@@ -31,6 +31,7 @@ func getItemFromURL(url string) ([]HouseInfo, error) {
 	doc.Find(".sellListContent").Find(".info").Each(func(i int, s *goquery.Selection) {
 		title := s.Find(".title").Text()
 		detailURL, _ := s.Find(".title").Find("a").Attr("href")
+		houseCode, _ := s.Find(".title").Find("a").Attr("data-housecode")
 		address := s.Find(".address").Text()
 		followInfo := s.Find(".followInfo").Text()
 		subway := s.Find(".subway").Text()
@@ -39,6 +40,7 @@ func getItemFromURL(url string) ([]HouseInfo, error) {
 		totalPrice, _ := strconv.Atoi(s.Find(".totalPrice").Find("span").Text())
 		unitPrice := s.Find(".unitPrice").Text()
 		houseInfo := HouseInfo{
+			HouseCode:  houseCode,
 			Title:      title,
 			DetailURL:  detailURL,
 			Address:    address,

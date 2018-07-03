@@ -1,0 +1,11 @@
+language: go
+
+
+services:
+  - mysql
+
+
+before_install:
+  - mysql -uroot -r 'CREATE DATABASE local_test DEFAULT CHARACTER SET utf8;'
+  find sql -name "*.sql" | awk '{ print "source" ,$0}' | mysql -u root --batch local_test
+
