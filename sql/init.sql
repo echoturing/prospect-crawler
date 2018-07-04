@@ -12,3 +12,8 @@
   `has_key` VARCHAR(32) NOT NULL,
    PRIMARY KEY (`id`)
  )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+ALTER TABLE `house_info` ADD city VARCHAR(10) NOT NULL DEFAULT "";
+ALTER TABLE `house_info` ADD district VARCHAR(10) NOT NULL DEFAULT "";
+ALTER TABLE `house_info` ADD created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6);
+ALTER TABLE `house_info` ADD INDEX `city_district_index` (`city`,`district`);

@@ -17,7 +17,7 @@ func (c *ConfigTestSuit) TestLoadConfigFromFile() {
 	cfg, err := LoadConfigFromFile(filePath)
 	c.Nil(err)
 	c.Equal("root", cfg.Mysql.User)
-	c.Equal("test", cfg.Mysql.Password)
+	c.Equal("", cfg.Mysql.Password)
 }
 
 func TestConnectionTestSuite(t *testing.T) {
