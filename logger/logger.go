@@ -6,16 +6,16 @@ import (
 	"go.uber.org/zap"
 )
 
-var logger *zap.Logger
+var log *zap.Logger
 
 func GetLogger() *zap.Logger {
-	if logger == nil {
-		logger, err := zap.NewProduction()
+	if log == nil {
+		log, err := zap.NewProduction()
 		if err != nil {
 			print(err.Error())
 			os.Exit(1)
 		}
-		return logger
+		return log
 	}
-	return logger
+	return log
 }
