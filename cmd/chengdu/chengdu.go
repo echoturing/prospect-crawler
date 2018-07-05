@@ -13,7 +13,7 @@ import (
 	"github.com/echoturing/buyhouse/db"
 	"github.com/echoturing/buyhouse/etc"
 	"github.com/echoturing/buyhouse/linkhome"
-	"github.com/labstack/gommon/log"
+	"github.com/echoturing/buyhouse/logger"
 	"go.uber.org/zap"
 )
 
@@ -24,29 +24,25 @@ var (
 func main() {
 	configPath := flag.String("config", "./etc/config.yaml", "The config file path")
 	flag.Parse()
-	logger, err := zap.NewProduction()
-	if err != nil {
-		print(err.Error())
-		os.Exit(1)
-	}
-	defer logger.Sync()
+	log := logger.GetLogger()
+	defer log.Sync()
 	filePath, err := filepath.Abs(*configPath)
 	if err != nil {
-		logger.Error("load config file path failed",
+		log.Error("load config file path failed",
 			zap.Error(err),
 		)
 		os.Exit(1)
 	}
 	cfg, err := etc.LoadConfigFromFile(filePath)
 	if err != nil {
-		logger.Error("load config failed",
+		log.Error("load config failed",
 			zap.Error(err),
 		)
 		os.Exit(1)
 	}
 	conn, err := db.NewConn(cfg)
 	if err != nil {
-		logger.Error("init db conn failed",
+		log.Error("init db conn failed",
 			zap.Error(err),
 		)
 		os.Exit(1)
@@ -63,7 +59,7 @@ func main() {
 		linkhome.SaveHouseInfoToFile(resultFile, items)
 		_, err = houseInfoDal.BatchCreateHouseInfo(items)
 		if err != nil {
-			logger.Error("save house info to db failed", zap.Error(err))
+			log.Error("save house info to db failed", zap.Error(err))
 		}
 	}
 }
