@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"path/filepath"
 
@@ -23,6 +22,7 @@ var (
 
 func main() {
 	configPath := flag.String("config", "./etc/config.yaml", "The config file path")
+	maxPage := flag.Int("max_page", 50, "the max page to crawl")
 	flag.Parse()
 	log := logger.GetLogger()
 	defer log.Sync()
@@ -52,11 +52,11 @@ func main() {
 		zap.String("conn", fmt.Sprintf("%#v", conn)),
 	)
 	houseInfoDal := linkhome.NewHouseInfoDal(conn)
-	timestamp := time.Now().Unix()
+	//timestamp := time.Now().Unix()
 	for _, district := range districts {
-		items := linkhome.CrawlDistrict(linkhome.Chengdu, district, 1)
-		resultFile := fmt.Sprintf("result_%s_%d.txt", district, timestamp)
-		linkhome.SaveHouseInfoToFile(resultFile, items)
+		items := linkhome.CrawlDistrict(linkhome.Chengdu, district, *maxPage)
+		//resultFile := fmt.Sprintf("result_%s_%d.txt", district, timestamp)
+		//linkhome.SaveHouseInfoToFile(resultFile, items)
 		_, err = houseInfoDal.BatchCreateHouseInfo(items)
 		if err != nil {
 			log.Error("save house info to db failed", zap.Error(err))
