@@ -1,13 +1,10 @@
 package main
 
 import (
-	"fmt"
-
-	"path/filepath"
-
-	"os"
-
 	"flag"
+	"fmt"
+	"os"
+	"path/filepath"
 
 	"github.com/echoturing/buyhouse/db"
 	"github.com/echoturing/buyhouse/ding_alert_service"
@@ -36,16 +33,12 @@ func main() {
 	}
 	cfg, err := etc.LoadConfigFromFile(filePath)
 	if err != nil {
-		log.Error("load config failed",
-			zap.Error(err),
-		)
+		log.Error("load config failed", zap.Error(err))
 		os.Exit(1)
 	}
 	conn, err := db.NewConn(cfg)
 	if err != nil {
-		log.Error("init db conn failed",
-			zap.Error(err),
-		)
+		log.Error("init db conn failed", zap.Error(err))
 		os.Exit(1)
 	}
 	log.Info("init mysql conn",

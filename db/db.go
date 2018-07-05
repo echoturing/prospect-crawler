@@ -20,9 +20,7 @@ func NewConn(cfg *etc.Config) (*dbr.Connection, error) {
 	mysqlConfig.Params["charset"] = cfg.Mysql.Charset
 	dsn := mysqlConfig.FormatDSN()
 	log := logger.GetLogger()
-	log.Info("parse dsn",
-		zap.String("dsn", dsn),
-	)
+	log.Info("parse dsn", zap.String("dsn", dsn))
 	conn, err := dbr.Open("mysql", dsn, nil)
 	if err != nil {
 		return nil, err
