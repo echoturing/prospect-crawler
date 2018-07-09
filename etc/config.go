@@ -16,8 +16,14 @@ type mysqlConfig struct {
 	ParseTime bool   `yaml:"parse_time"`
 }
 
+type DingAlert struct {
+	Usage string `json:"usage"`
+	Url   string `json:"url"`
+}
+
 type Config struct {
-	Mysql mysqlConfig `yaml:"mysql"`
+	Mysql     mysqlConfig `yaml:"mysql"`
+	DingAlert DingAlert   `yaml:"ding_alert"`
 }
 
 func LoadConfigFromFile(filePath string) (*Config, error) {
