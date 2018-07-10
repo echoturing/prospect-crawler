@@ -7,3 +7,24 @@
 [submodule "vendor/golang.org/x/net"]
 	path = vendor/golang.org/x/net
 	url = https://github.com/golang/net.git
+[submodule "vendor/github.com/go-yaml/yaml"]
+	path = vendor/github.com/go-yaml/yaml
+	url = https://github.com/go-yaml/yaml
+[submodule "vendor/github.com/gocraft/dbr"]
+	path = vendor/github.com/gocraft/dbr
+	url = https://github.com/gocraft/dbr
+[submodule "vendor/github.com/go-sql-driver/mysql"]
+	path = vendor/github.com/go-sql-driver/mysql
+	url = https://github.com/go-sql-driver/mysql
+[submodule "vendor/github.com/stretchr/testify"]
+	path = vendor/github.com/stretchr/testify
+	url = https://github.com/stretchr/testify.git
+[submodule "vendor/go.uber.org/atomic"]
+	path = vendor/go.uber.org/atomic
+	url = https://github.com/uber-go/atomic.git
+[submodule "vendor/go.uber.org/multierr"]
+	path = vendor/go.uber.org/multierr
+	url = https://github.com/uber-go/multierr.git
+[submodule "vendor/go.uber.org/zap"]
+	path = vendor/go.uber.org/zap
+	url = https://github.com/uber-go/zap.git
