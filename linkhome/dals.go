@@ -50,6 +50,7 @@ func (h *HouseInfoDal) CreateHouseInfo(info *HouseInfo) (*HouseInfo, error) {
 
 func (h *HouseInfoDal) BatchCreateHouseInfo(infoList []*HouseInfo) (int64, error) {
 	session := h.conn.NewSession(nil)
+	defer session.Close()
 	tx, err := session.Begin()
 	if err != nil {
 		return 0, err
@@ -76,6 +77,7 @@ func (h *HouseInfoDal) BatchCreateHouseInfo(infoList []*HouseInfo) (int64, error
 
 func (h *HouseInfoDal) GetHouseInfoListByCityAndDistrict(city, district string, limit, offset uint64) ([]*HouseInfo, int64, error) {
 	session := h.conn.NewSession(nil)
+	defer session.Close()
 	var infoList []*HouseInfo
 	count, err := session.Select(TableHouseColumns...).
 		From(TableHouseInfo).
