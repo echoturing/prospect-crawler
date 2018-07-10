@@ -18,7 +18,8 @@ import (
 )
 
 var (
-	port = flag.Int("port", 8000, "port")
+	port       = flag.Int("port", 8000, "port")
+	configPath = flag.String("config", "./etc/config.yaml", "The config file path")
 )
 
 type server struct {
@@ -39,11 +40,12 @@ func (s *server) index(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) query(w http.ResponseWriter, r *http.Request) {
 	session := s.conn.NewSession(nil)
-	defer session.Close()
-	query := session.Select(strings.Join(linkhome.TableHouseColumns, ",")).From(linkhome.TableHouseInfo)
-	var result linkhome.HouseInfo
+	query := session.Select(strings.Join(linkhome.TableHouseColumns, ",")).From(linkhome.TableHouseInfo).Limit(100)
+	var result []linkhome.HouseInfo
 	if _, err := query.Load(&result); err != nil {
 		http.Error(w, "failed to query", http.StatusInternalServerError)
+		log := logger.GetLogger()
+		log.Error("query", zap.String("err", err.Error()))
 		return
 	}
 	responseJSON(w, &result)
@@ -57,8 +59,6 @@ func responseJSON(w http.ResponseWriter, i interface{}) error {
 }
 
 func main() {
-	flag.Parse()
-	configPath := flag.String("config", "./etc/config.yaml", "The config file path")
 	flag.Parse()
 	log := logger.GetLogger()
 	defer log.Sync()
