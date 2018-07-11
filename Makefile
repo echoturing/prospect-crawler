@@ -12,7 +12,7 @@ main:
 	GOPATH=$(GOPATH) go install -v \
 		$(PKG)/cmd/chengdu \
 		$(PKG)/cmd/shanghai-2018 \
-		$(PKG)/cmd/server
+		$(PKG)/cmd/houseinfo-server
 
 clean:
 	-rm -fr $(GOPATH)
