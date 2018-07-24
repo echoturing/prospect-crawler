@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/echoturing/buyhouse/db"
-	"github.com/echoturing/buyhouse/etc"
+	"github.com/echoturing/prospect-crawler/db"
+	"github.com/echoturing/prospect-crawler/etc"
 	"github.com/stretchr/testify/suite"
 )
 

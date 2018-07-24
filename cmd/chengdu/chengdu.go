@@ -6,11 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/echoturing/buyhouse/db"
-	"github.com/echoturing/buyhouse/ding_alert_service"
-	"github.com/echoturing/buyhouse/etc"
-	"github.com/echoturing/buyhouse/linkhome"
-	"github.com/echoturing/buyhouse/logger"
+	"github.com/echoturing/prospect-crawler/db"
+	"github.com/echoturing/prospect-crawler/ding_alert_service"
+	"github.com/echoturing/prospect-crawler/etc"
+	"github.com/echoturing/prospect-crawler/linkhome"
+	"github.com/echoturing/prospect-crawler/logger"
 	"go.uber.org/zap"
 )
 
