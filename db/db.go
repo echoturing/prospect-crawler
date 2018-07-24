@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/echoturing/buyhouse/etc"
-	"github.com/echoturing/buyhouse/logger"
+	"github.com/echoturing/prospect-crawler/etc"
+	"github.com/echoturing/prospect-crawler/logger"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gocraft/dbr"
 	"go.uber.org/zap"
