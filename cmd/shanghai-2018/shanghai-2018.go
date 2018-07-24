@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/echoturing/buyhouse/linkhome"
+	"github.com/echoturing/prospect-crawler/linkhome"
 )
 
 var (

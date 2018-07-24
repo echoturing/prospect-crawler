@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/echoturing/buyhouse/logger"
+	"github.com/echoturing/prospect-crawler/logger"
 	"go.uber.org/zap"
 )
 

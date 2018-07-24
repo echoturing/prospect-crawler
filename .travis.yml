@@ -1,12 +1,8 @@
 language: go
 sudo: false
 go:
-  - 1.10.x
-go_import_path: github.com/echoturing/buyhouse
-
-cache:
-  directories:
-    - vendor
+  - 1.10.3
+go_import_path: github.com/echoturing/prospect-crawler
 
 services:
   - mysql
@@ -14,9 +10,10 @@ services:
 before_install:
   - mysql -uroot -e 'CREATE DATABASE local_test DEFAULT CHARACTER SET utf8;'
   - find sql -name "*.sql" | awk '{ print "source" ,$0}' | mysql -u root --batch local_test
+  - go get -u golang.org/x/vgo
 
 install:
-  - git submodule update --init --recursive
+  - vgo install -v ./cmd/...
 
 script:
-  - go list ./...  | grep -v vendor | xargs go test
+  - vgo test ./...
