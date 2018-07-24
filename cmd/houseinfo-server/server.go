@@ -9,10 +9,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/echoturing/buyhouse/db"
-	"github.com/echoturing/buyhouse/etc"
-	"github.com/echoturing/buyhouse/linkhome"
-	"github.com/echoturing/buyhouse/logger"
+	"github.com/echoturing/prospect-crawler/db"
+	"github.com/echoturing/prospect-crawler/etc"
+	"github.com/echoturing/prospect-crawler/linkhome"
+	"github.com/echoturing/prospect-crawler/logger"
 	"github.com/gocraft/dbr"
 	"go.uber.org/zap"
 )
